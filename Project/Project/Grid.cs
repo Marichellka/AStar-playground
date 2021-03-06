@@ -5,32 +5,36 @@ namespace Project
 {
     public class Grid
     {
-        public List<Node[]> GetGrid(string path)
+        public List<char[]> GetGrid(string path) 
         {
-            List<Node[]> grid = new List<Node[]>();
+            List<char[]> charGrid = new List<char[]>();
             using (var sr= new StreamReader(path))
             {
-                int numberOfRow = 0;
                 while (!sr.EndOfStream)
                 {
                     string row = sr.ReadLine();
-                    grid.Add(ConvertToNodesObj(row, numberOfRow));
-                    numberOfRow++;
+                    char[] currentRow = new char[row.Length/2];
+                    for (int i = 0; i < row.Length; i+=2)
+                    {
+                        currentRow[i/2] = row[i];
+                    }
+                    charGrid.Add(currentRow);
                 }
             }
-
-            return grid;
+            return charGrid;
         }
-
-        private Node[] ConvertToNodesObj(string str, int rowNumber)
+        private Node[][] ConvertGridToNodeGrid(List<char[]> charGrid)
         {
-            Node[] currentRow = new Node[str.Length/2];
-            for (int i = 0; i < str.Length; i ++)
+            Node[][] grid = new Node[charGrid.Count][];
+            for (int i = 0; i < charGrid.Count; i++) 
             {
-                currentRow[i/2] = new Node(i / 2, rowNumber, str[i]);
-                i++;
+                grid[i] = new Node[charGrid[i].Length];
+                for (int j = 0; j < charGrid[i].Length; j++)
+                {
+                            grid[i][j]=new Node(j, i, charGrid[i][j]);
+                }
             }
-            return currentRow;
+            return grid;
         }
     }
 }
