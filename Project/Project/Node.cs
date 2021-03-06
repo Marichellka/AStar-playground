@@ -9,11 +9,10 @@
         private bool Marked { get; set; }
         private Node Parent { get; set; }
 
-        public Node(int column, int row, int value, char elem)
+        public Node(int column, int row, char elem)
         {
             X = column;
             Y = row;
-            Cost = value;
             if (elem == 'X') Barrier = true;
             else Barrier = false;
         } 
