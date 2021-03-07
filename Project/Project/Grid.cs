@@ -49,5 +49,13 @@ namespace Project
 
             return way;
         }
+        
+        public static void SetWayOnGrid(List<char[]> grid, List<Node> way)
+        {
+            foreach (var currentNode in way)
+            {
+                grid[currentNode.Y][currentNode.X] = '*';
+            }
+        }
     }
 }
