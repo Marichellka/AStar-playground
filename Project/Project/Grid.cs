@@ -8,6 +8,8 @@ namespace Project
     {
         public Node[][] NodeGrid { get; private set; }
         public List<char[]> CharsGrid { get;}
+        public Node StartNode { get; set; }
+        public Node EndNode { get; set; }
         
         public Grid(string path)
         {
