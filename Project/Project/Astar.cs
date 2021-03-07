@@ -7,6 +7,7 @@ namespace Project
     {
         public Grid Grid { get;}
         private List<Node> OpenNodes;
+        public List<Node> Way { get; private set; }
         
         public Astar(Grid grid)
         {
@@ -74,6 +75,17 @@ namespace Project
         private int HeuristicFunction(Node current, Node end)
         {
             return Math.Abs(current.X - end.X) + Math.Abs(current.Y - end.Y);
+        }
+        
+        public void GetWay()
+        {
+            Node current = Grid.EndNode;
+            Way = new List<Node>();
+            while (current.Parent != null)
+            {
+                Way.Add(current);
+                current = current.Parent;
+            }
         }
     }
 }
