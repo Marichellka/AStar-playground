@@ -36,5 +36,18 @@ namespace Project
             }
             return grid;
         }
+        
+        public static List<Node> GetWay(Node endNode)
+        {
+            Node current = endNode;
+            List<Node> way = new List<Node>();
+            while (current.Parent != null)
+            {
+                way.Add(current);
+                current = current.Parent;
+            }
+
+            return way;
+        }
     }
 }
