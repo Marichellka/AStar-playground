@@ -14,8 +14,14 @@
         {
             X = column;
             Y = row;
-            if (elem == 'X') Barrier = true;
-            else Barrier = false;
+            if (elem == 'X')
+            {
+                Barrier = true;
+            }
+            else
+            {
+                Barrier = false;
+            }
         } 
     }
 }
