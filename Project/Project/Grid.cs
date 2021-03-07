@@ -7,31 +7,30 @@ namespace Project
     public class Grid
     {
         public Node[][] NodeGrid { get; private set; }
-        public List<char[]> CharsGrid { get;}
-        public Node StartNode { get; set; }
-        public Node EndNode { get; set; }
+        private List<char[]> CharsGrid;
+        public Node StartNode { get; private set; }
+        public Node EndNode { get; private set; }
         
-        public Grid(string path)
+        public Grid(string path, int xStart, int yStart, int xEnd, int yEnd)
         {
-            List<char[]> charGrid = new List<char[]>();
+            CharsGrid = new List<char[]>();
             using (var sr= new StreamReader(path))
             {
                 while (!sr.EndOfStream)
                 {
                     string row = sr.ReadLine();
-                    char[] currentRow = new char[row.Length/2];
+                    char[] currentRow = new char[(int) Math.Ceiling(row.Length/2.0)];
                     for (int i = 0; i < row.Length; i+=2)
                     {
                         currentRow[i/2] = row[i];
                     }
-                    charGrid.Add(currentRow);
+                    CharsGrid.Add(currentRow);
                 }
             }
-            CharsGrid = charGrid;
-            ConvertGridToNodeGrid();
+            ConvertGridToNodeGrid(xStart, yStart, xEnd, yEnd);
         }
 
-       private void ConvertGridToNodeGrid()
+       private void ConvertGridToNodeGrid(int xStart, int yStart, int xEnd, int yEnd)
         {
            Node[][] grid = new Node[CharsGrid.Count][];
             for (int i = 0; i < CharsGrid.Count; i++)
@@ -43,6 +42,8 @@ namespace Project
                 }
             }
             NodeGrid = grid;
+            StartNode = NodeGrid[yStart][xStart];
+            EndNode = NodeGrid[yEnd][xEnd];
         }
        
         public void SetWayOnGrid(List<Node> way)
