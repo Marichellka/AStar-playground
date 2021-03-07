@@ -6,7 +6,10 @@ namespace Project
 {
     public class Grid
     {
-        public List<char[]> GetGrid(string path) 
+        public Node[][] NodeGrid { get; private set; }
+        public List<char[]> CharsGrid { get;}
+        
+        public Grid(string path)
         {
             List<char[]> charGrid = new List<char[]>();
             using (var sr= new StreamReader(path))
@@ -22,53 +25,42 @@ namespace Project
                     charGrid.Add(currentRow);
                 }
             }
-            return charGrid;
+            CharsGrid = charGrid;
+            ConvertGridToNodeGrid();
         }
-        private Node[][] ConvertGridToNodeGrid(List<char[]> charGrid)
+
+       private void ConvertGridToNodeGrid()
         {
-            Node[][] grid = new Node[charGrid.Count][];
-            for (int i = 0; i < charGrid.Count; i++) 
+           Node[][] grid = new Node[CharsGrid.Count][];
+            for (int i = 0; i < CharsGrid.Count; i++)
             {
-                grid[i] = new Node[charGrid[i].Length];
-                for (int j = 0; j < charGrid[i].Length; j++)
+                grid[i] = new Node[CharsGrid[i].Length];
+                for (int j = 0; j < CharsGrid[i].Length; j++)
                 {
-                            grid[i][j]=new Node(j, i, charGrid[i][j]);
+                    grid[i][j]=new Node(j, i, CharsGrid[i][j]);
                 }
             }
-            return grid;
+            NodeGrid = grid;
         }
-        
-        public static List<Node> GetWay(Node endNode)
-        {
-            Node current = endNode;
-            List<Node> way = new List<Node>();
-            while (current.Parent != null)
-            {
-                way.Add(current);
-                current = current.Parent;
-            }
-
-            return way;
-        }
-        
-        public static void SetWayOnGrid(List<char[]> grid, List<Node> way)
+       
+        public void SetWayOnGrid(List<Node> way)
         {
             foreach (var currentNode in way)
             {
-                grid[currentNode.Y][currentNode.X] = '*';
+                CharsGrid[currentNode.Y][currentNode.X] = '*';
             }
         }
-        
-        public static void PrintGrid(List<char[]> grid, string path)
+
+        public void PrintGrid(string path)
         {
             using ( StreamWriter sw = new StreamWriter(path, true))
             {
-                for (int i = 0; i < grid.Count; i++)
+                for (int i = 0; i < CharsGrid.Count; i++)
                 {
-                    for (int j = 0; j < grid[i].Length; j++)
+                    for (int j = 0; j < CharsGrid[i].Length; j++)
                     {
-                        Console.Write(grid[i][j]+" ");
-                        sw.Write(grid[i][j]+" ");
+                        Console.Write(CharsGrid[i][j]+" ");
+                        sw.Write(CharsGrid[i][j]+" ");
                     }
                     Console.WriteLine();
                     sw.WriteLine();
