@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Project
 {
@@ -25,11 +26,20 @@ namespace Project
         
         public Node MinNodeByEstimatedCost(List<Node> openNodes)
         {
-            return null;
+            Node minCostNode=openNodes[0];
+            for (int i = 1; i < openNodes.Count; i++)
+            {
+                if (openNodes[i].EstimatedCost < minCostNode.EstimatedCost)
+                {
+                    minCostNode = openNodes[i];
+                }
+            }
+
+            return minCostNode;
         }
         public int HeuristicFunction(Node current, Node end)
         {
-            return 0;
+            return Math.Abs(current.X - end.X) + Math.Abs(current.Y - end.Y);
         }
     }
 }
