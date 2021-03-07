@@ -16,6 +16,7 @@ namespace Project
         
         public void Algorithm()
         {
+            OpenNodes = new List<Node>();
             OpenNodes.Add(Grid.StartNode);
             Grid.StartNode.Cost = 0;
             Grid.StartNode.EstimatedCost = Grid.StartNode.Cost+HeuristicFunction(Grid.StartNode, Grid.EndNode);
@@ -24,7 +25,7 @@ namespace Project
                 Node currentNode = MinNodeByEstimatedCost();
                 if (currentNode == Grid.EndNode)
                 {
-                    return;
+                    break;
                 }
 
                 OpenNodes.Remove(currentNode);
@@ -42,6 +43,7 @@ namespace Project
                     CheckNeigbour(neighbour, currentNode);
                 }
             }
+            GetWay();
         }
 
         private void CheckNeigbour(Node neighbour, Node currentNode)
@@ -77,7 +79,7 @@ namespace Project
             return Math.Abs(current.X - end.X) + Math.Abs(current.Y - end.Y);
         }
         
-        public void GetWay()
+        private void GetWay()
         {
             Node current = Grid.EndNode;
             Way = new List<Node>();
