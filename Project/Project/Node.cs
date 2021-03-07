@@ -2,12 +2,13 @@
 {
     public class Node
     {
-        private bool Barrier { get; } 
-        private int Cost { get; set; }
-        private int X = 0;
-        private int Y = 0;
-        private bool Marked { get; set; }
-        private Node Parent { get; set; }
+        public bool Barrier { get; } 
+        public int Cost { get; set; }
+        public int EstimatedCost{ get; set; }
+        public int X { get; }
+        public int Y { get; }
+        public bool Marked { get; set; }
+        public Node Parent { get; set; }
 
         public Node(int column, int row, char elem)
         {
