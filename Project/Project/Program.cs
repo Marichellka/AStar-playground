@@ -6,7 +6,12 @@ namespace Project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string path = Console.ReadLine();
+            Grid grid = new Grid(path);
+            Astar astar=new Astar(grid);
+            astar.Algorithm();
+            grid.SetWayOnGrid(astar.Way);
+            grid.PrintGrid(path);
         }
     }
 }
