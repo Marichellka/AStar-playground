@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Project
@@ -55,6 +56,23 @@ namespace Project
             foreach (var currentNode in way)
             {
                 grid[currentNode.Y][currentNode.X] = '*';
+            }
+        }
+        
+        public static void PrintGrid(List<char[]> grid, string path)
+        {
+            using ( StreamWriter sw = new StreamWriter(path, true))
+            {
+                for (int i = 0; i < grid.Count; i++)
+                {
+                    for (int j = 0; j < grid[i].Length; j++)
+                    {
+                        Console.Write(grid[i][j]+" ");
+                        sw.Write(grid[i][j]+" ");
+                    }
+                    Console.WriteLine();
+                    sw.WriteLine();
+                }
             }
         }
     }
