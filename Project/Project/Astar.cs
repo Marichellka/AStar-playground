@@ -16,19 +16,29 @@ namespace Project
         
         public void Algorithm()
         {
+            int count = 0;
             OpenNodes.Add(Grid.StartNode);
             Grid.StartNode.Cost = 0;
             Grid.StartNode.EstimatedCost = Grid.StartNode.Cost+HeuristicFunction(Grid.StartNode, Grid.EndNode);
             while (OpenNodes.Count>0)
             {
                 Node currentNode = MinNodeByEstimatedCost();
+                OpenNodes.Remove(currentNode);
+                currentNode.Marked = true;
+                if (count < 10)
+                {
+                    currentNode.Sign = Convert.ToChar(count.ToString());
+                }
+                else
+                {
+                    currentNode.Sign = Convert.ToChar(count+87);
+                }
+                count++;
+                Grid.PrintCurrentState();
                 if (currentNode == Grid.EndNode)
                 {
                     return;
                 }
-
-                OpenNodes.Remove(currentNode);
-                currentNode.Marked = true;
                 Node[] neighbours = new[]
                 {
                     Grid.NodeGrid[currentNode.Y + 1][currentNode.X],

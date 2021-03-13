@@ -9,11 +9,13 @@
         public int Y { get; }
         public bool Marked { get; set; }
         public Node Parent { get; set; }
+        public char Sign { get; set; }
 
         public Node(int column, int row, char elem)
         {
             X = column;
             Y = row;
+            Sign = elem;
             if (elem == 'X')
             {
                 Barrier = true;
