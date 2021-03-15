@@ -6,7 +6,7 @@ namespace Project
     public class Astar
     {
         public Grid Grid { get;}
-        private List<Node> OpenNodes;
+        private PriorityQueue<Node> OpenNodes;
         public List<Node> Way { get; private set; }
         
         public Astar(Grid grid)
@@ -16,15 +16,14 @@ namespace Project
         
         public void Algorithm()
         {
-            OpenNodes = new List<Node>();
+            OpenNodes = new PriorityQueue<Node>();
             int count = 0;
-            OpenNodes.Add(Grid.StartNode);
+            OpenNodes.Add(Grid.StartNode, Grid.StartNode.EstimatedCost);
             Grid.StartNode.Cost = 0;
             Grid.StartNode.EstimatedCost = Grid.StartNode.Cost+HeuristicFunction(Grid.StartNode, Grid.EndNode);
             while (OpenNodes.Count>0)
             {
-                Node currentNode = MinNodeByEstimatedCost();
-                OpenNodes.Remove(currentNode);
+                Node currentNode = OpenNodes.Top();
                 currentNode.Marked = true;
                 if (count < 10)
                 {
@@ -60,28 +59,14 @@ namespace Project
         {
             if (!neighbour.Barrier && !neighbour.Marked)
             {
-                if (!OpenNodes.Contains(neighbour))
+                if (!OpenNodes.Contains(neighbour, neighbour.EstimatedCost))
                 {
                     neighbour.Cost = currentNode.Cost + 1;
                     neighbour.EstimatedCost = currentNode.Cost + 1 + HeuristicFunction(neighbour, Grid.EndNode);
                     neighbour.Parent = currentNode;
-                    OpenNodes.Add(neighbour);
+                    OpenNodes.Add(neighbour, neighbour.EstimatedCost);
                 }
             }
-        }
-        
-        private Node MinNodeByEstimatedCost()
-        {
-            Node minCostNode=OpenNodes[0];
-            for (int i = 1; i < OpenNodes.Count; i++)
-            {
-                if (OpenNodes[i].EstimatedCost < minCostNode.EstimatedCost)
-                {
-                    minCostNode = OpenNodes[i];
-                }
-            }
-
-            return minCostNode;
         }
 
         private int HeuristicFunction(Node current, Node end)
@@ -93,7 +78,7 @@ namespace Project
         {
             Node current = Grid.EndNode;
             Way = new List<Node>();
-            while (current.Parent != null)
+            while (current != null)
             {
                 Way.Add(current);
                 current = current.Parent;

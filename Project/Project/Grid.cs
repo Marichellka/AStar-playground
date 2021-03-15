@@ -47,37 +47,45 @@ namespace Project
             EndNode = NodeGrid[yEnd][xEnd];
         }
        
-       public void PrintCurrentState()
-       {
-           Thread.Sleep(500);
-           Console.Clear();
-           for (int i = 0; i < NodeGrid.Length; i++)
-           {
-               for (int j = 0; j < NodeGrid[i].Length; j++)
-               {
-                   Console.Write(NodeGrid[i][j].Sign+" ");
-               }
-               Console.WriteLine();
-           }
-       }
+        public void SetWayOnGrid(List<Node> way)
+        {
+            foreach (var currentNode in way)
+            {
+                CharsGrid[currentNode.Y][currentNode.X] = '-';
+            }
+        }
 
-       public void PrintResult(string path)
-       {
-           using ( StreamWriter sw = new StreamWriter(path, true))
-           {
-               sw.WriteLine();
-               Console.WriteLine();
-               for (int i = 0; i < CharsGrid.Count; i++)
-               {
-                   for (int j = 0; j < CharsGrid[i].Length; j++)
-                   {
-                       Console.Write(CharsGrid[i][j]+" ");
-                       sw.Write(CharsGrid[i][j]+" ");
-                   }
-                   Console.WriteLine();
-                   sw.WriteLine();
-               }
-           }
-       }
+        public void PrintCurrentState()
+        {
+            Thread.Sleep(500);
+            Console.Clear();
+            for (int i = 0; i < NodeGrid.Length; i++)
+            {
+                for (int j = 0; j < NodeGrid[i].Length; j++)
+                {
+                    Console.Write(NodeGrid[i][j].Sign+" ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void PrintResult(string path)
+        {
+            using ( StreamWriter sw = new StreamWriter(path, true))
+            {
+                sw.WriteLine();
+                Console.WriteLine();
+                for (int i = 0; i < CharsGrid.Count; i++)
+                {
+                    for (int j = 0; j < CharsGrid[i].Length; j++)
+                    {
+                        Console.Write(CharsGrid[i][j]+" ");
+                        sw.Write(CharsGrid[i][j]+" ");
+                    }
+                    Console.WriteLine();
+                    sw.WriteLine();
+                }
+            }
+        }
     }
 }

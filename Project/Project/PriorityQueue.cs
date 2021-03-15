@@ -7,7 +7,7 @@ namespace Project
         private T[] _array;
         private int[] priorities;
         public int Count { get; private set; }
-        private int capacity = 2;
+        private int capacity = 10;
         private int head;
         private int tail;
 
