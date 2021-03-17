@@ -63,7 +63,7 @@ namespace Project
             {
                 for (int j = 0; j < NodeGrid[i].Length; j++)
                 {
-                    if (NodeGrid[i][j].Barrier)
+                    if (NodeGrid[i][j].Barrier  || !NodeGrid[i][j].Marked)
                     {
                         Console.Write(NodeGrid[i][j].Sign.ToString().PadRight(3));
                     }
