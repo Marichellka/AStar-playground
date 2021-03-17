@@ -16,8 +16,8 @@ namespace Project
         
         public void Algorithm()
         {
-            OpenNodes.Add(Grid.StartNode);
-            OpenNodes = new List<Node>();
+            OpenNodes = new PriorityQueue<Node>();
+            OpenNodes.Add(Grid.StartNode, Grid.StartNode.EstimatedCost);
             Grid.StartNode.Cost = 0;
             Grid.StartNode.EstimatedCost = Grid.StartNode.Cost+HeuristicFunction(Grid.StartNode, Grid.EndNode);
             while (OpenNodes.Count>0)
@@ -31,10 +31,10 @@ namespace Project
                 }
                 Node[] neighbours = new[]
                 {
-                    Grid.NodeGrid[currentNode.Y + 1][currentNode.X],
-                    Grid.NodeGrid[currentNode.Y - 1][currentNode.X],
                     Grid.NodeGrid[currentNode.Y][currentNode.X + 1],
-                    Grid.NodeGrid[currentNode.Y][currentNode.X - 1]
+                    Grid.NodeGrid[currentNode.Y + 1][currentNode.X],
+                    Grid.NodeGrid[currentNode.Y][currentNode.X - 1],
+                    Grid.NodeGrid[currentNode.Y - 1][currentNode.X]
                 };
 
                 foreach (var neighbour in neighbours)
