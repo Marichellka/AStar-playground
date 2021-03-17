@@ -16,24 +16,14 @@ namespace Project
         
         public void Algorithm()
         {
-            OpenNodes = new PriorityQueue<Node>();
-            int count = 0;
-            OpenNodes.Add(Grid.StartNode, Grid.StartNode.EstimatedCost);
+            OpenNodes.Add(Grid.StartNode);
+            OpenNodes = new List<Node>();
             Grid.StartNode.Cost = 0;
             Grid.StartNode.EstimatedCost = Grid.StartNode.Cost+HeuristicFunction(Grid.StartNode, Grid.EndNode);
             while (OpenNodes.Count>0)
             {
                 Node currentNode = OpenNodes.Top();
                 currentNode.Marked = true;
-                if (count < 10)
-                {
-                    currentNode.Sign = Convert.ToChar(count.ToString());
-                }
-                else
-                {
-                    currentNode.Sign = Convert.ToChar(count+87);
-                }
-                count++;
                 Grid.PrintCurrentState();
                 if (currentNode == Grid.EndNode)
                 {
