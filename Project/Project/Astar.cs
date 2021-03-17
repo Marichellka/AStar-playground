@@ -17,7 +17,6 @@ namespace Project
         public void Algorithm()
         {
             OpenNodes = new List<Node>();
-            int count = 0;
             OpenNodes.Add(Grid.StartNode);
             Grid.StartNode.Cost = 0;
             Grid.StartNode.EstimatedCost = Grid.StartNode.Cost+HeuristicFunction(Grid.StartNode, Grid.EndNode);
@@ -26,15 +25,6 @@ namespace Project
                 Node currentNode = MinNodeByEstimatedCost();
                 OpenNodes.Remove(currentNode);
                 currentNode.Marked = true;
-                if (count < 10)
-                {
-                    currentNode.Sign = Convert.ToChar(count.ToString());
-                }
-                else
-                {
-                    currentNode.Sign = Convert.ToChar(count+87);
-                }
-                count++;
                 Grid.PrintCurrentState();
                 if (currentNode == Grid.EndNode)
                 {
